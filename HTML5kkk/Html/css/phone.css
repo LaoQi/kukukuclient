@@ -19,8 +19,8 @@
 html, body {
     height: 100%;
     width: 100%;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 
 body {
@@ -39,29 +39,88 @@ body {
 #container {
     width: auto;
     height: auto;
-    padding: 6px 6px 6px 6px;
+    padding: 0.5em 0.5em 0.5em 0.5em;
+}
+
+.Hide {
+    display: none;
+}
+
+.littlenumber {
+    background-color: #808080;
+    font-size: 0.8em;
 }
 
 .Thread {
     background-color: #ffffff;
     width: auto;
     height: auto;
-    padding: 6px 6px 6px 6px;
-    margin: 6px 0 6px 0; 
+    padding: 0.5em 0.5em 0.5em 0.5em;
+    margin: 0.5em 0 0.5em 0; 
+    text-align: center;
+}
+
+.ThreadThumb {
 }
 
 .ThreadPanel {
-
+    text-align: left;
 }
 
 .ThreadContent {
+    padding: 0 0.5em 0 0.5em;
+    text-align: left;
+}
 
+.ThreadBar {
+    text-align: right;
+}
+
+.ThreadBarId {
+    margin-right: 1em;
+}
+
+.ThreadLast {
+    padding: 0.5em 1em 0 0.5em;
+}
+
+.ThreadReply {
+    margin: 0.5em auto 0.5em auto;
+    padding: 0.25em 0.25em 0.25em 0.25em;
+    background-color: rgba(235, 235, 235, 1);
 }
 
 .FloatLeft {
+    text-align:left;
     float:left;
 }
 
 .FloatRight {
+    text-align:right;
     float:right;
+}
+
+.HrLine {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 0px solid;
+    margin: 0.5em 0;
+    padding: 0;
+    border-color: #C0C0C0;
+}
+
+.HrLine_1px {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid;
+    margin: 0.5em 0;
+    padding: 0;
+    border-color: #C0C0C0;
+}
+
+.BarButton{
+    display:inline;
+    margin: 0 1em;
 }

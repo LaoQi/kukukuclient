@@ -3,23 +3,59 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link rel="stylesheet" type="text/css" href="css/phone.css" />
-        <script src="js/react.min.js"></script>
+        <!--<script src="js/react.min.js"></script>-->
+        <script src="js/react-with-addons.min.js"></script>
         <script src="js/react-dom.min.js"></script>
         <script src="js/browser.min.js"></script>
+        <script src="js/jquery-1.12.0.min.js"></script>
         <script src="js/data.js"></script>
+        <script src="js/common.js"></script>
         <script src="js/components.js"></script>
         <title>kukuku</title>
     </head>
     <body>
-        <div id="container"></div>
+        <div id="container">
+            <div id="main_container"></div>
+            <div id="thread_container"></div>
+        </div>
         <script type="text/javascript">
-            var container = document.getElementById('container');
-            container.onselectstart = function () { return false; };
-            var threads = React.createElement(Threads, { data: data });
-            ReactDOM.render(
-                threads,
-                container
-            );
+            function LOG(str) {
+                if (typeof(window.external.Notify) != "undefined") {
+                    window.external.Notify(str.toString());
+                } else {
+                    console.log(str);
+                }
+            }
+            document.getElementById('container').onselectstart = function () { return false; };
+            
+            function openCategroy(address) {
+                KKK.OpenForm(address);
+            }
+
+            function refresh() {
+                KKK.Refresh();
+            }
+
+            function openThreadNo(no) {
+                KKK.OpenThread(no);
+            }
+
+            function backup() {
+                KKK.Backup();
+            }
+
+            function cangoback() {
+                if (KKK.canback) {
+                    return "yes";
+                } else {
+                    return "no";
+                }
+            }
+
+            refresh();
+            // if (window.external){
+            //     window.external.Notify("123");
+            // }
             // setInterval(function() {
             //     ReactDOM.render(
             //         <Thread date={new Date()} />,

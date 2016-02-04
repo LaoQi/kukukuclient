@@ -39,7 +39,7 @@ namespace HTML5kkk
             if (Debugger.IsAttached)
             {
                 // 显示当前帧速率计数器。
-                Application.Current.Host.Settings.EnableFrameRateCounter = true;
+                Application.Current.Host.Settings.EnableFrameRateCounter = false;
 
                 // 显示在每个帧中重绘的应用程序区域。
                 //Application.Current.Host.Settings.EnableRedrawRegions = true;
