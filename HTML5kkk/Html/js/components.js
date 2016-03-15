@@ -12,6 +12,8 @@ var formatDate = function (time) {
     return formatstr;
 }
 
+var refReg = /<font color="#789922">/g;
+
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 var ThreadThumb = React.createClass({
@@ -48,7 +50,7 @@ var ThreadThumb = React.createClass({
 
 var ThreadContent = React.createClass({
     rawContent: function (content) {
-        var rawstr = content;
+        var rawstr = content.replace(refReg, "<font color=\"#789922\" onclick=\"KKK.GetRef(this)\">");
         return { __html: rawstr };
     },
     render: function () {
@@ -266,7 +268,6 @@ var ThreadReply = React.createClass({
                     ),
                     // thread thumb
                     React.createElement(ThreadThumb,
-
                         {
                             thumb: this.props.data.thumb,
                             image: this.props.data.image

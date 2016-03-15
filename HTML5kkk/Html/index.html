@@ -15,13 +15,15 @@
     </head>
     <body>
         <div id="container">
+            <div id="mask_div" onclick="clickmask(this)"></div>
+            <div id="thread_ref"></div>
             <div id="main_container"></div>
             <div id="thread_container"></div>
         </div>
         <script type="text/javascript">
             function LOG(str) {
                 if (typeof(window.external.Notify) != "undefined") {
-                    window.external.Notify(str.toString());
+                    window.external.Notify("log#"+str.toString());
                 } else {
                     console.log(str);
                 }
@@ -52,7 +54,11 @@
                 }
             }
 
-            refresh();
+            function clickmask(e){
+                $(e).hide();
+                $("#thread_ref").empty().hide();
+            }
+
             // if (window.external){
             //     window.external.Notify("123");
             // }

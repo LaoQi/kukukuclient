@@ -42,6 +42,30 @@ body {
     padding: 0.5em 0.5em 0.5em 0.5em;
 }
 
+#thread_ref {
+    z-index:1000;
+    position:fixed;
+    left:0em;
+    right:0em;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+#mask_div {
+    z-index:999;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left:0px;  
+    top:0px;  
+    background-color: #000000;  
+    /*透明度*/  
+    opacity: 0.6;
+    text-align: center;  
+    vertical-align: middle;
+    display:none;
+}
+
 .Hide {
     display: none;
 }

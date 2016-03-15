@@ -4,6 +4,7 @@
 
 HOSTROOT = "http://kukuku.cc";
 HOSTTHREADROOT = "http://kukuku.cc/t/";
+HOSTFORMREF = "http://kukuku.cc/homepage/ref";
 HOSTSTATIC = "http://static.koukuko.com/h"
 
 var KKK = {
@@ -80,6 +81,12 @@ var KKK = {
             document.getElementById('thread_container')
         );
     },
+    RefRender: function(tdata) {
+        ReactDOM.render(
+            React.createElement(ThreadReply, { data: tdata }),
+            document.getElementById('thread_ref')
+        );
+    },
     TReset: function() {
         this.threadno = -1;
         this.tpage = 1;
@@ -148,5 +155,55 @@ var KKK = {
                 console.log(data);
             }
         });
+    },
+    GetRef: function (e) {
+        $("#mask_div").show();
+        $("#thread_ref").show();
+        var tid = /\d+/.exec($(e).text())[0];
+        if (tid) {
+            var tdata = null;
+            for (var i in this.threads) {
+                if (this.threads[i]["id"] == tid) {
+                    tdata = this.threads[i];
+                    break;
+                }
+                if (this.threads[i]["last"].length > 0) {
+                    for (var j in this.threads[i]["last"]) {
+                        if (this.threads[i]["last"][j]["id"] == tid) {
+                            tdata = this.threads[i]["last"][j];
+                            break;
+                        }
+                    }
+                }
+                if (tdata != null) {
+                    break;
+                }
+            }
+            if (tdata == null) {
+                for (var i in this.replys) {
+                    if (this.replys[i]["id"] == tid) {
+                        tdata = this.replys[i];
+                        break;
+                    }
+                }
+            }
+            if (tdata != null) {
+                KKK.RefRender(tdata);
+            } else {
+                var url = HOSTFORMREF + ".json?tid=" + tid;
+                $.ajax({
+                    url: url,
+                    dataType: "json",
+                    success: function (data) {
+                        if (data["success"]) {
+                            KKK.RefRender(data.data);
+                        }
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            }
+        }
     }
 };

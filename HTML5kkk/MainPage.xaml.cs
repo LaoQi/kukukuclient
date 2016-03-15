@@ -47,6 +47,7 @@ namespace HTML5kkk
             var list = new List<string> {
                 "综合版1",
                 "欢乐恶搞",
+                "询问2",
                 "推理",
                 "技术宅",
                 "料理",
@@ -171,6 +172,8 @@ namespace HTML5kkk
             } else if(pageState == PageState.Categroy)
             {
                 Categroy.Visibility = Visibility.Collapsed;
+                pageState = PageState.Threads;
+                e.Cancel = true;
             } else if(pageState == PageState.Threads)
             {
                 string cangoback = (string)Browser.InvokeScript("cangoback");
@@ -296,8 +299,8 @@ namespace HTML5kkk
             p.Child = border;
 
             // Set where the popup will show up on the screen.
-            p.VerticalOffset = 150;
-            p.HorizontalOffset = 150;
+            p.VerticalOffset = 0;
+            p.HorizontalOffset = 0;
 
             // Open the popup.
             p.IsOpen = true;

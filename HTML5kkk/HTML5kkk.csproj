@@ -130,6 +130,7 @@
     <Content Include="Assets\AlignmentGrid.png" />
     <Content Include="Assets\AppBar\add.png" />
     <Content Include="Assets\AppBar\edit.png" />
+    <Content Include="Assets\AppBar\folder.png" />
     <Content Include="Assets\AppBar\next.png" />
     <Content Include="Assets\AppBar\refresh.png" />
     <Content Include="Assets\ApplicationIcon.png">
