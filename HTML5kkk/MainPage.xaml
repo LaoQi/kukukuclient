@@ -21,6 +21,7 @@
                               HorizontalAlignment="Stretch"
                               VerticalAlignment="Stretch"
                               Loaded="Browser_Loaded"
+                              LoadCompleted="Browser_LoadCompleted"
                               Navigated="Browser_Navigated"
                               Navigating="Browser_Navigating"
                               NavigationFailed="Browser_NavigationFailed"
@@ -31,14 +32,26 @@
         </Grid>
         <ListBox 
             x:Name="Categroy" 
-            Background="Black">
+            Background="#F0F0F0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
+                    <StackPanel 
+                        Orientation="Vertical"
+                        Margin="10 2 10 2"
+                        Background="White"
+                        >
                         <TextBlock
-                            FontSize="35"
+                            TextAlignment="Center"
+                            FontSize="30"
                             Text="{Binding}" 
+                            Foreground="Black"
                             Tap="TextBlock_Tap" />
+                        <Line 
+                            X1="1" Y1="0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch" 
+                            Stretch="Fill"
+                            StrokeThickness="1" />
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

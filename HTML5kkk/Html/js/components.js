@@ -98,6 +98,7 @@ var ThreadLast = React.createClass({
                                             [
                                                 React.createElement('span', { className: "ThreadBarId" }, "No." + item.id),
                                                 React.createElement('span', null, item.uid),
+                                                React.createElement('span', { className: "GreenPo" }, item.uid == this.props.po ? "PO" : null),
                                                 React.createElement('span', { className: "FloatRight" }, formatDate(item.createdAt)),
                                                 React.createElement('hr', { className: "HrLine" })
                                             ]
@@ -117,7 +118,7 @@ var ThreadLast = React.createClass({
                                         )
                                     ]
                                 );
-                            }.bind(this))
+                            },this)
                         )
                     ]
                 )
@@ -148,7 +149,7 @@ var Thread = React.createClass({
                         {className: "ThreadPanel"}, 
                         [
                             React.createElement('span', { className: "ThreadBarId" }, "No." + this.props.data.id),
-                            React.createElement('span', null, this.props.data.uid), 
+                            React.createElement('span', null, this.props.data.uid),
                             React.createElement('span', { className: "FloatRight" }, formatDate(this.props.data.createdAt)),
                             React.createElement('hr', { className: "HrLine" })
                         ]
@@ -171,6 +172,7 @@ var Thread = React.createClass({
                         {
                             last: this.props.data.last,
                             tid: this.props.data.id,
+                            po: this.props.data.uid,
                             showitem: this.state.showlast
                         }
                     ),
@@ -256,6 +258,7 @@ var ThreadReply = React.createClass({
                         [
                             React.createElement('span', { className: "ThreadBarId" }, "No." + this.props.data.id),
                             React.createElement('span', null, this.props.data.uid),
+                            React.createElement('span', { className: "GreenPo" }, this.props.data.uid == this.props.po ? "PO" : null),
                             React.createElement('span', { className: "FloatRight" }, formatDate(this.props.data.createdAt)),
                             React.createElement('hr', { className: "HrLine" })
                         ]
@@ -288,9 +291,12 @@ var ThreadReplys = React.createClass({
                 this.props.replys.map(function (item, i) {
                     return React.createElement(
                         ThreadReply,
-                        { data: item }
+                        {
+                            data: item,
+                            po: this.props.replys[0].uid
+                        }
                     );
-                }).concat(
+                }, this).concat(
                     React.createElement(
                         "div",
                         {

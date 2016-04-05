@@ -47,8 +47,9 @@ body {
     position:fixed;
     left:0em;
     right:0em;
-    margin-left:auto;
-    margin-right:auto;
+    margin-left:1em;
+    margin-right:1em;
+    margin-top:5em;
 }
 
 #mask_div {
@@ -122,6 +123,11 @@ body {
 .FloatRight {
     text-align:right;
     float:right;
+}
+
+.GreenPo {
+    color:green;
+    margin-left:1em;
 }
 
 .HrLine {

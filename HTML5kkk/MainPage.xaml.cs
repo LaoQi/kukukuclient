@@ -38,6 +38,11 @@ namespace HTML5kkk
         public MainPage()
         {
             InitializeComponent();
+        }
+
+        // Browser加载完成后再加载列表
+        private void Browser_LoadCompleted(object sender, NavigationEventArgs e)
+        {
             InitalizeList();
         }
 
