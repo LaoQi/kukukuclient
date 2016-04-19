@@ -59,6 +59,7 @@ var KKK = {
     Refresh: function () {
         this.threads = [];
         this.page = 1;
+        this.Render();
         this.GetData();
         window.scrollTo(0, 0);
     },
@@ -106,6 +107,7 @@ var KKK = {
         this.canback = true;
         window.scrollTo(0, 0);
         this.threadno = no;
+        this.TRender();
         $("#main_container").hide();
         this.GetThread();
         $("#thread_container").show();
@@ -120,7 +122,7 @@ var KKK = {
         }
     },
     GetData: function () {
-        var url = HOSTROOT + '/' + this.address + ".json?page=" + this.page;
+        var url = HOSTROOT + '/' + this.address + ".json?page=" + this.page + "&" + (new Date()).getTime();
         $.ajax({
             url: url,
             dataType: "json",
@@ -137,7 +139,7 @@ var KKK = {
         });
     },
     GetThread: function () {
-        var url = HOSTTHREADROOT + this.threadno + ".json?page=" + this.tpage;
+        var url = HOSTTHREADROOT + this.threadno + ".json?page=" + this.tpage + "&" + (new Date()).getTime();
         $.ajax({
             url: url,
             dataType: "json",
@@ -190,7 +192,7 @@ var KKK = {
             if (tdata != null) {
                 KKK.RefRender(tdata);
             } else {
-                var url = HOSTFORMREF + ".json?tid=" + tid;
+                var url = HOSTFORMREF + ".json?tid=" + tid + "&" + (new Date()).getTime();
                 $.ajax({
                     url: url,
                     dataType: "json",

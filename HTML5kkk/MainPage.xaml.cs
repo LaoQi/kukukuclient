@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Threading.Tasks;
 using Windows.Storage;
 using System.IO;
+using System.IO.IsolatedStorage;
+using Microsoft.Xna.Framework.Media;
 
 namespace HTML5kkk
 {
@@ -23,6 +25,17 @@ namespace HTML5kkk
         private const string MainUri = "/Html/index.html";
         // 本地数据文件
         private const string LocalStorageFile = "";
+        
+        private ApplicationBarIconButton categoryBtn;
+        private ApplicationBarIconButton newpostBtn;
+        private ApplicationBarIconButton jumptoBtn;
+        private ApplicationBarIconButton refreshBtn;
+
+        private ApplicationBarIconButton saveimageBtn;
+        private ApplicationBarIconButton shareimageBtn;
+
+        private ApplicationBarMenuItem settingMenu;
+        private ApplicationBarMenuItem aboutMenu;
 
         enum PageState
         {
@@ -38,8 +51,56 @@ namespace HTML5kkk
         public MainPage()
         {
             InitializeComponent();
+            ApplicationBar = new ApplicationBar();
+            categoryBtn = new ApplicationBarIconButton(new Uri("/Assets/AppBar/folder.png", UriKind.Relative));
+            categoryBtn.Text = "板块";
+            categoryBtn.Click += new EventHandler(Categroy_Click);
+            newpostBtn = new ApplicationBarIconButton(new Uri("/Assets/AppBar/add.png", UriKind.Relative));
+            newpostBtn.Text = "发串";
+            newpostBtn.IsEnabled = false;
+            jumptoBtn = new ApplicationBarIconButton(new Uri("/Assets/AppBar/next.png", UriKind.Relative));
+            jumptoBtn.Text = "跳转";
+            jumptoBtn.IsEnabled = false;
+            refreshBtn = new ApplicationBarIconButton(new Uri("/Assets/AppBar/refresh.png", UriKind.Relative));
+            refreshBtn.Text = "刷新";
+            refreshBtn.Click += new EventHandler(RefreshItem_Click);
+
+            saveimageBtn = new ApplicationBarIconButton(new Uri("/Assets/AppBar/save.png", UriKind.Relative));
+            saveimageBtn.Text = "保存";
+            saveimageBtn.Click += new EventHandler(SaveImage_Click);
+            shareimageBtn = new ApplicationBarIconButton(new Uri("/Assets/AppBar/share.png", UriKind.Relative));
+            shareimageBtn.Text = "分享";
+            shareimageBtn.Click += new EventHandler(ShareImage_Click);
+
+            settingMenu = new ApplicationBarMenuItem("设置");
+            aboutMenu = new ApplicationBarMenuItem("关于");
+
+            ChangeAppBar(PageState.Categroy);
+            ApplicationBar.Mode = ApplicationBarMode.Minimized;
+
+            ApplicationBar.MenuItems.Add(settingMenu);
+            ApplicationBar.MenuItems.Add(aboutMenu);
         }
 
+        private void ChangeAppBar(PageState state)
+        {
+            ApplicationBar.Buttons.Clear();
+            if (state != PageState.Image)
+            {
+                ApplicationBar.Mode = ApplicationBarMode.Default;
+                ApplicationBar.Buttons.Add(categoryBtn);
+                ApplicationBar.Buttons.Add(newpostBtn);
+                ApplicationBar.Buttons.Add(jumptoBtn);
+                ApplicationBar.Buttons.Add(refreshBtn);
+
+            } else
+            {
+                ApplicationBar.Mode = ApplicationBarMode.Minimized;
+                ApplicationBar.Buttons.Add(saveimageBtn);
+                ApplicationBar.Buttons.Add(shareimageBtn);
+            }
+        }
+        
         // Browser加载完成后再加载列表
         private void Browser_LoadCompleted(object sender, NavigationEventArgs e)
         {
@@ -174,6 +235,7 @@ namespace HTML5kkk
                 ImageLayer.Visibility = Visibility.Collapsed;
                 pageState = PageState.Threads;
                 e.Cancel = true;
+                ChangeAppBar(PageState.Threads);
             } else if(pageState == PageState.Categroy)
             {
                 Categroy.Visibility = Visibility.Collapsed;
@@ -243,12 +305,16 @@ namespace HTML5kkk
             bitImage = new BitmapImage(new Uri(url, UriKind.RelativeOrAbsolute));
             bitImage.DownloadProgress += BitImage_DownloadProgress;
             bitImage.ImageOpened += BitImage_ImageOpened;
+          
             Image.Source = bitImage;
             ImageLayer.Visibility = Visibility.Visible;
             ImageProgressBar.Visibility = Visibility.Visible;
             ThreadLayer.Visibility = Visibility.Collapsed;
             pageState = PageState.Image;
             Image_ResetTransform();
+            // 修改button，增加保存图片按钮
+            ChangeAppBar(PageState.Image);
+            
         }
 
         // 打开板块
@@ -443,6 +509,37 @@ namespace HTML5kkk
         {
             pageState = PageState.Categroy;
             Categroy.Visibility = Visibility.Visible;
+        }
+
+        private void SaveImage_Click(object sender, EventArgs e)
+        {
+            // 图像宽度大于0就可以保存
+            if (bitImage.PixelWidth <= 0)
+            {
+                MessageBox.Show("图片保存失败");
+
+            }
+            String filename = DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpg";
+            IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication();
+            if (store.FileExists(filename))
+            {
+                store.DeleteFile(filename);
+            }
+            IsolatedStorageFileStream stream = store.CreateFile(filename);
+
+            WriteableBitmap wb = new WriteableBitmap(bitImage);
+            Extensions.SaveJpeg(wb, stream, bitImage.PixelWidth, bitImage.PixelHeight, 0, 100);
+            stream.Close();
+            stream = store.OpenFile(filename, FileMode.Open, FileAccess.Read);
+            MediaLibrary mediaLibrary = new MediaLibrary();
+            Picture pic = mediaLibrary.SavePicture(filename, stream);
+            stream.Close();
+            MessageBox.Show("图片保存成功");
+        }
+
+        private void ShareImage_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("share");
         }
     }
 }

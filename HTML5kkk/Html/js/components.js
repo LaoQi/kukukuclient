@@ -97,7 +97,7 @@ var ThreadLast = React.createClass({
                                             { className: "ThreadPanel" },
                                             [
                                                 React.createElement('span', { className: "ThreadBarId" }, "No." + item.id),
-                                                React.createElement('span', null, item.uid),
+                                                React.createElement('span', { dangerouslySetInnerHTML: { __html: item.uid } }),
                                                 React.createElement('span', { className: "GreenPo" }, item.uid == this.props.po ? "PO" : null),
                                                 React.createElement('span', { className: "FloatRight" }, formatDate(item.createdAt)),
                                                 React.createElement('hr', { className: "HrLine" })
@@ -149,7 +149,7 @@ var Thread = React.createClass({
                         {className: "ThreadPanel"}, 
                         [
                             React.createElement('span', { className: "ThreadBarId" }, "No." + this.props.data.id),
-                            React.createElement('span', null, this.props.data.uid),
+                            React.createElement('span', { dangerouslySetInnerHTML: { __html: this.props.data.uid } }),
                             React.createElement('span', { className: "FloatRight" }, formatDate(this.props.data.createdAt)),
                             React.createElement('hr', { className: "HrLine" })
                         ]
@@ -257,7 +257,7 @@ var ThreadReply = React.createClass({
                         { className: "ThreadPanel" },
                         [
                             React.createElement('span', { className: "ThreadBarId" }, "No." + this.props.data.id),
-                            React.createElement('span', null, this.props.data.uid),
+                            React.createElement('span', { dangerouslySetInnerHTML: { __html: this.props.data.uid } }),
                             React.createElement('span', { className: "GreenPo" }, this.props.data.uid == this.props.po ? "PO" : null),
                             React.createElement('span', { className: "FloatRight" }, formatDate(this.props.data.createdAt)),
                             React.createElement('hr', { className: "HrLine" })
