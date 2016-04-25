@@ -26,9 +26,22 @@
                               Navigating="Browser_Navigating"
                               NavigationFailed="Browser_NavigationFailed"
                               ScriptNotify="Browser_ScriptNotify"
+                              SizeChanged="Browser_SizeChanged"
                               ManipulationStarted="Browser_ManipulationStarted"
                               ManipulationDelta="Browser_ManipulationDelta">
             </phone:WebBrowser>
+        </Grid>
+        <Grid x:Name="ImageLayer" 
+              Background="Black"
+              Visibility="Collapsed">
+            <ProgressBar 
+                x:Name="ImageProgressBar" 
+                Height="5" 
+                VerticalAlignment="Top" 
+                IsIndeterminate="False"/>
+            <Image x:Name="Image" 
+                   DoubleTap="Image_DoubleTap" 
+                   ManipulationDelta="Image_ManipulationDelta"/>
         </Grid>
         <ListBox 
             x:Name="Categroy" 
@@ -56,16 +69,6 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Grid x:Name="ImageLayer" Visibility="Visible">
-            <ProgressBar 
-                x:Name="ImageProgressBar" 
-                Height="5" 
-                VerticalAlignment="Top" 
-                IsIndeterminate="False"/>
-            <Image x:Name="Image" 
-                   DoubleTap="Image_DoubleTap" 
-                   ManipulationDelta="Image_ManipulationDelta"/>
-        </Grid>
     </Grid>
 
     <!-- ApplicationBar -->

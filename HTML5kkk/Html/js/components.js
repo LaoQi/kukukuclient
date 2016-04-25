@@ -21,6 +21,7 @@ var ThreadThumb = React.createClass({
         var image = this.props.image || this.props.thumb;
         var cmd = "image#" + HOSTSTATIC + image;
         if (typeof (window.external.Notify) != "undefined") {
+            KKK.imgScrollY = window.scrollY || window.pageYOffset;
             window.external.Notify(cmd.toString());
         } else {
             console.log(cmd);

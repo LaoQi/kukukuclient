@@ -47,6 +47,8 @@ namespace HTML5kkk
 
         private BitmapImage bitImage;
 
+        private bool loaded = false;
+
         // 构造函数
         public MainPage()
         {
@@ -104,6 +106,7 @@ namespace HTML5kkk
         // Browser加载完成后再加载列表
         private void Browser_LoadCompleted(object sender, NavigationEventArgs e)
         {
+            loaded = true;
             InitalizeList();
         }
 
@@ -540,6 +543,14 @@ namespace HTML5kkk
         private void ShareImage_Click(object sender, EventArgs e)
         {
             MessageBox.Show("share");
+        }
+
+        private void Browser_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (loaded)
+            {
+                Browser.InvokeScript("imgback");
+            }
         }
     }
 }

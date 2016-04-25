@@ -21,6 +21,8 @@ var KKK = {
     // state
     canback: false,
     scrollY: 0,
+    // img
+    imgScrollY: 0,
 
     GetCategory : function(){
     },
@@ -98,7 +100,6 @@ var KKK = {
         this.threads = [];
         this.page = 1;
         this.Render();
-        window.scrollTo(0, 0);
         this.address = ad;
         this.Refresh();
     },

@@ -54,6 +54,14 @@
                 }
             }
 
+            function imgback() {
+                if (KKK.imgScrollY > 0) {
+                    setTimeout(function () {
+                        window.scrollTo(0, KKK.imgScrollY);
+                    }, 50);
+                }
+            }
+
             function clickmask(e){
                 $(e).hide();
                 $("#thread_ref").empty().hide();
